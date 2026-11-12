@@ -1,4 +1,5 @@
-﻿from pathlib import Path
+﻿
+from pathlib import Path
 import os
 
 from sqlalchemy import create_engine
@@ -6,9 +7,11 @@ from sqlalchemy.orm import DeclarativeBase, sessionmaker
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
 
-DEFAULT_DATABASE_URL = (
-    f"sqlite:///{(ROOT_DIR / 'database' / 'kyc_compliance.db').as_posix()}"
+DEPLOYMENT_DATABASE = (
+    ROOT_DIR / "deployment_data" / "kyc_compliance.db"
 )
+
+DEFAULT_DATABASE_URL = f"sqlite:///{DEPLOYMENT_DATABASE.as_posix()}"
 
 DATABASE_URL = os.getenv("DATABASE_URL", DEFAULT_DATABASE_URL)
 
@@ -41,6 +44,6 @@ def init_db():
 
     Base.metadata.create_all(bind=engine)
 
-    print("Database created successfully!")
+    print("Database initialized successfully!")
     print("Database URL:", DATABASE_URL)
     print("Tables:", list(Base.metadata.tables.keys()))
