@@ -1,0 +1,23 @@
+.venv/
+__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example
+
+# Local databases and backups
+database/*.db
+database/*.sqlite*
+backups/
+
+# Generated datasets and ground truth
+data/
+
+# Frontend dependencies and build
+frontend/node_modules/
+frontend/dist/
+
+# Exclude backup and destructive reset scripts
+*_backup.py
+*.backup
+reset_database.py
